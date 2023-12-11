@@ -1,0 +1,20 @@
+
+WITH ranked_rents AS (
+    SELECT zipcode,
+           ROUND(CAST("2023-01-31" AS NUMERIC), 2) AS January2023,
+           RANK() OVER (ORDER BY "2023-01-31" DESC) AS rent_rank_desc,
+           RANK() OVER (ORDER BY "2023-01-31" ASC) AS rent_rank_asc
+    FROM rents
+    WHERE "2023-01-31" IS NOT NULL
+)
+SELECT rr.zipcode,
+       rr.January2023,
+       COUNT(t.tree_id) AS Total_Trees,
+       COUNT(c.complaint_type) AS Total_Complaints
+FROM ranked_rents rr
+LEFT JOIN trees t ON rr.zipcode = t.zipcode
+LEFT JOIN complaints c ON rr.zipcode = c.zipcode
+WHERE rr.rent_rank_desc <= 5 OR rr.rent_rank_asc <= 5
+GROUP BY rr.zipcode, rr.January2023
+ORDER BY rr.January2023 DESC;
+
