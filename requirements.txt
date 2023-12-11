@@ -1,0 +1,6 @@
+Below are the installations required to properly run our final project.
+
+Python packages added via pip-install: psycopg2-binary, geoalchemy2, & geopandas
+3rd-party libraries already included with Anaconda: conda, ipykernel, jsonschema, jupyter, matplotlib, numpy, pandas, python, sqlalchemy, & sqlite
+
+Additionally, PostgreSQL was a must-have for data analysis, along with GitHub Desktop and Visual Studio Code for collaborative purposes.
